@@ -1,1 +1,0 @@
-# Tech-Challenge-02-2026
