@@ -55,15 +55,13 @@ Foram executados 3 experimentos, variando simultaneamente tamanho da população
 
 | Modelo | Experimento 1 | Experimento 2 | Experimento 3 | Melhor Experimento |
 |---|---|---|---|---|
-| Regressão Logística | 0.6459 | 0.6459 | 0.6459 | Experimento 1 |
-| Random Forest | 0.6833 | **0.6920** | 0.6871 | Experimento 2 |
+| Regressão Logística | 0.6459 | 0.6459 | 0.6463 | Experimento 3 |
+| Random Forest | 0.6890 | 0.6875 | 0.6892 | Experimento 3 |
 | KNN | 0.6517 | 0.6517 | 0.6517 | Experimento 1 |
 
-<img width="709" height="393" alt="fitness_evolution_randomforest" src="https://github.com/user-attachments/assets/e6e7e60c-6328-41d9-b107-264dc7bf9634" />
-<img width="726" height="393" alt="fitness_evolution_logisticregression" src="https://github.com/user-attachments/assets/b6d92953-daee-4d24-86ec-2ece33e1a253" />
-<img width="726" height="393" alt="fitness_evolution_knn" src="https://github.com/user-attachments/assets/031eb0ff-f287-4025-81f9-3d1e182cda31" />
-
-Durante os testes, a Regressão Logística e o KNN estabilizaram em poucas gerações, enquanto o Random Forest levou um pouco mais de tempo para convergir.
+<img width="727" height="392" alt="fitness_evolution_logisticregression" src="https://github.com/user-attachments/assets/129f1438-20e6-4a0d-b7d8-9615ab378f44" />
+<img width="709" height="392" alt="fitness_evolution_randomforest" src="https://github.com/user-attachments/assets/f581b6ad-d152-4428-8ff0-121388dd24a5" />
+<img width="700" height="392" alt="fitness_evolution_knn" src="https://github.com/user-attachments/assets/f59eeecb-18fa-4dc0-ae1f-3cb5801ceb4c" />
 
 ### Melhores hiperparâmetros encontrados
 
@@ -71,8 +69,8 @@ Ao final da otimização, o Algoritmo Genético encontrou as seguintes configura
 
 | Modelo | Melhor experimento | Melhores hiperparâmetros |
 |---|---|---|
-| Regressão Logística | Experimento 1 | `C = 1.0`, `solver = liblinear`, `max_iter = 470` |
-| Random Forest | Experimento 2 | `n_estimators = 62`, `max_depth = 15`, `min_samples_split = 4` |
+| Regressão Logística | Experimento 3 | `C = 0.122`, `solver = liblinear`, `max_iter = 312` |
+| Random Forest | Experimento 3 | `n_estimators = 50`, `max_depth = 15`, `min_samples_split = 8` |
 | KNN | Experimento 1 | `n_neighbors = 9`, `weights = distance` |
 
 ## 4. Comparação entre o modelo original e o modelo otimizado
@@ -81,17 +79,16 @@ Para garantir uma comparação justa, o modelo original e o modelo otimizado usa
 
 | Modelo | F1 Original | F1 Otimizado | Ganho (%) |
 |---|---|---|---|
-| Regressão Logística | 0.5918 | 0.5918 | 0.00% |
-| Random Forest | 0.6471 | 0.6214 | **-3.97%** |
+| Regressão Logística | 0.5918 | 0.5979 | +1.03% |
+| Random Forest | 0.6471 | 0.6337 | **-2.07%** |
 | KNN | 0.5607 | 0.5825 | **+3.88%** |
 
-<img width="989" height="590" alt="f1_comparacao_modelos" src="https://github.com/user-attachments/assets/0db9c767-ca2a-43a8-9e19-67fc6782f581" />
-
+<img width="989" height="590" alt="f1_comparacao_modelos" src="https://github.com/user-attachments/assets/82590adf-78eb-4868-afb3-33031ebbb933" />
 
 ### Interpretação
-O resultado mais interessante foi o do **Random Forest**. Os hiperparâmetros escolhidos pelo Algoritmo Genético obtiveram o melhor F1 em validação cruzada (0.6920) durante o próprio processo evolutivo, mas ao treinar o modelo final e avaliar no conjunto de teste isolado, o desempenho caiu (0.6214 vs. 0.6471 do modelo original). Esse comportamento pode indicar um certo overfitting durante o processo de otimização, já que os hiperparâmetros apresentaram ótimo desempenho na validação cruzada, mas não conseguiram manter o mesmo resultado no conjunto de teste.
+O resultado mais interessante foi o do **Random Forest**. Os hiperparâmetros escolhidos pelo Algoritmo Genético obtiveram o melhor F1 em validação cruzada (0.6892) durante o próprio processo evolutivo, mas ao treinar o modelo final e avaliar no conjunto de teste isolado, o desempenho caiu (0.6337 vs. 0.6471 do modelo original). Esse comportamento pode indicar um certo overfitting durante o processo de otimização, já que os hiperparâmetros apresentaram ótimo desempenho na validação cruzada, mas não conseguiram manter o mesmo resultado no conjunto de teste.
 
-Já o **KNN** teve ganho real e consistente (+3.88%), beneficiado principalmente pela troca do peso de vizinhança de **uniform** para **distance** e pelo ajuste fino de **n_neighbors**. A **Regressão Logística** não mostrou variação, já que os hiperparâmetros ótimos encontrados ficaram muito próximos dos valores padrão do scikit-learn.
+Já o **KNN** teve ganho real e consistente (+3.88%), beneficiado principalmente pela troca do peso de vizinhança de **uniform** para **distance** e pelo ajuste fino de **n_neighbors**. A **Regressão Logística** apresentou uma melhora discreta no F1-Score (+1,03%), indicando que a otimização encontrou uma configuração ligeiramente superior à utilizada originalmente.
 
 Esse resultado mostra que utilizar apenas o F1-Score da validação cruzada como função de fitness nem sempre garante que o modelo terá o melhor desempenho em dados novos.
 
