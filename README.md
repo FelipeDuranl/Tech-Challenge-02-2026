@@ -59,9 +59,9 @@ Foram executados 3 experimentos, variando simultaneamente tamanho da população
 | Random Forest | 0.6833 | **0.6920** | 0.6871 | Experimento 2 |
 | KNN | 0.6517 | 0.6517 | 0.6517 | Experimento 1 |
 
-<img src="assets/fitness_evolution_randomforest.png" width="500" alt="Evolução do fitness - Random Forest" />
-<img src="assets/fitness_evolution_logisticregression.png" width="500" alt="Evolução do fitness - Regressão Logística" />
-<img src="assets/fitness_evolution_knn.png" width="500" alt="Evolução do fitness - KNN" />
+<img width="709" height="393" alt="fitness_evolution_randomforest" src="https://github.com/user-attachments/assets/e6e7e60c-6328-41d9-b107-264dc7bf9634" />
+<img width="726" height="393" alt="fitness_evolution_logisticregression" src="https://github.com/user-attachments/assets/b6d92953-daee-4d24-86ec-2ece33e1a253" />
+<img width="726" height="393" alt="fitness_evolution_knn" src="https://github.com/user-attachments/assets/031eb0ff-f287-4025-81f9-3d1e182cda31" />
 
 Durante os testes, a Regressão Logística e o KNN estabilizaram em poucas gerações, enquanto o Random Forest levou um pouco mais de tempo para convergir.
 
@@ -85,7 +85,8 @@ Para garantir uma comparação justa, o modelo original e o modelo otimizado usa
 | Random Forest | 0.6471 | 0.6214 | **-3.97%** |
 | KNN | 0.5607 | 0.5825 | **+3.88%** |
 
-<img src="assets/f1_comparacao_modelos.png" width="600" alt="Comparação F1 Original x Otimizado" />
+<img width="989" height="590" alt="f1_comparacao_modelos" src="https://github.com/user-attachments/assets/0db9c767-ca2a-43a8-9e19-67fc6782f581" />
+
 
 ### Interpretação
 O resultado mais interessante foi o do **Random Forest**. Os hiperparâmetros escolhidos pelo Algoritmo Genético obtiveram o melhor F1 em validação cruzada (0.6920) durante o próprio processo evolutivo, mas ao treinar o modelo final e avaliar no conjunto de teste isolado, o desempenho caiu (0.6214 vs. 0.6471 do modelo original). Esse comportamento pode indicar um certo overfitting durante o processo de otimização, já que os hiperparâmetros apresentaram ótimo desempenho na validação cruzada, mas não conseguiram manter o mesmo resultado no conjunto de teste.
